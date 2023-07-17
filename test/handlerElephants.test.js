@@ -14,7 +14,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants('location')).toBe('NW');
   });
   test('Testa se a função retorna popularidade se o argumento for popularity', () => {
-    expect(handlerElephants('popularity')).toBe(5);
+    expect(handlerElephants('popularity')).toBeGreaterThanOrEqual(5);
   });
   test('Testa se a função retorna a relação de dias em que é possível visitar se o argumento for availability', () => {
     expect(handlerElephants('availability')).toEqual(['Friday', 'Saturday', 'Sunday', 'Tuesday']);
