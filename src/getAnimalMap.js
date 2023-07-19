@@ -1,24 +1,21 @@
 const data = require('../data/zoo_data');
 
-function createAnimalOptions(filteredSpecies, { includeNames, sorted, sex }) {
-  if (includeNames) {
-    return filteredSpecies.map(({ name, residents }) => {
-      let animalNames;
-      if (sex) {
-        animalNames = residents
-          .filter((resident) => resident.sex === sex)
-          .map((resident) => resident.name);
-      } else animalNames = residents.map((resident) => resident.name);
-      if (sorted) animalNames.sort();
-      return { [name]: animalNames };
-    });
-  }
-  return filteredSpecies.map(({ name }) => name);
+function createAnimalOptions(filteredSpecies, { sorted, sex }) {
+  return filteredSpecies.map(({ name, residents }) => {
+    let animalNames;
+    if (sex) {
+      animalNames = residents
+        .filter((resident) => resident.sex === sex)
+        .map((resident) => resident.name);
+    } else animalNames = residents.map((resident) => resident.name);
+    if (sorted) animalNames.sort();
+    return { [name]: animalNames };
+  });
 }
 
 function createAnimal(location, options, species) {
   const filteredSpecies = species.filter((specie) => specie.location === location);
-  if (options) return createAnimalOptions(filteredSpecies, options);
+  if (options && options.includeNames) return createAnimalOptions(filteredSpecies, options);
   return filteredSpecies.map(({ name }) => name);
 }
 
@@ -32,5 +29,5 @@ function getAnimalMap(options) {
   };
 }
 
-console.log(getAnimalMap({ includeNames: true }));
+console.log(getAnimalMap());
 module.exports = getAnimalMap;
